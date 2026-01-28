@@ -72,14 +72,27 @@
             </section>
 
             <section id="result-page" class="view-section hidden">
-                <div class="result-display">
-                    <h1 id="result-title">Review Complete</h1>
-                    <p id="final-result-text"></p>
-                    <div class="result-actions">
-                        <button class="primary-btn" onclick="location.reload()">Return to Command</button>
-                    </div>
-                </div>
-            </section>
+    <div class="result-display">
+        <div class="result-header-card">
+            <h1 id="result-title">Training Complete</h1>
+            <div class="result-score-circle">
+                <span id="final-score-num">0</span>
+                <small>Correct</small>
+            </div>
+            <p id="final-result-text"></p>
+        </div>
+
+        <div id="mistake-review-container" class="hidden">
+            <h3 class="review-heading">Reviewing Weak Points</h3>
+            <div id="mistakes-list"></div>
+        </div>
+
+        <div class="result-actions">
+            <button class="primary-btn" onclick="location.reload()">Return to Command</button>
+            <button id="show-review-btn" class="secondary-btn">Review Mistakes</button>
+        </div>
+    </div>
+</section>
         </main>
     </div>
 
