@@ -24,6 +24,19 @@ const allQuizzes = {
             }
         ]
     }
+},
+"mathematics":{
+    title: "Mathematics and Algebra",
+    desc: "Simple math and equations.",
+    questions: [
+        {
+            q: "If you have 1/4 of 0.5, how much do you have?",
+            a: ["0.25", "1", "0.5", "2"],
+            correct: 0,
+            explanation: "Multiplying by 0.5 is equivalent to dividing by 2. (1/4)/2"
+        }
+        ]
+    }
 };
 
 // 2. GLOBAL STATE (The Memory)
