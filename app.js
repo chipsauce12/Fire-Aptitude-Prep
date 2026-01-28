@@ -1,3 +1,4 @@
+// 1. DATA OBJECT (The Content)
 const allQuizzes = {
     "mech": {
         title: "Mechanical Reasoning",
@@ -19,18 +20,23 @@ const allQuizzes = {
                 q: "You find a coworker is visibly intoxicated while arriving for a night shift. What is the most safety-conscious action?", 
                 a: ["Tell them to go home quietly", "Cover their duties yourself", "Immediately notify the officer in charge", "Wait until the first call to see if they can perform"], 
                 correct: 2,
-                explanation: "In fire services, life safety is paramount. An impaired crew member is a danger to themselves, the team, and the public. Chain of command must be notified immediately."
+                explanation: "In fire services, life safety is paramount. An impaired crew member is a danger to themselves, the team, and the public."
             }
         ]
     }
 };
 
+// 2. GLOBAL STATE (The Memory)
 let currentQuizKey = "";
 let currentQuestionIndex = 0;
 let score = 0;
+let userMistakes = []; 
 
+// 3. INITIALIZATION (The Dashboard Builder)
 function init() {
     const grid = document.getElementById('quiz-grid');
+    if (!grid) return;
+    
     grid.innerHTML = "";
     for (let key in allQuizzes) {
         const quiz = allQuizzes[key];
@@ -46,15 +52,19 @@ function init() {
     }
 }
 
+// 4. NAVIGATION LOGIC
 function showSection(sectionId) {
     document.querySelectorAll('.view-section').forEach(s => s.classList.add('hidden'));
-    document.getElementById(sectionId).classList.remove('hidden');
+    const target = document.getElementById(sectionId);
+    if (target) target.classList.remove('hidden');
 }
 
+// 5. QUIZ CORE LOGIC
 function startQuiz(key) {
     currentQuizKey = key;
     currentQuestionIndex = 0;
     score = 0;
+    userMistakes = []; // Reset mistakes for new attempt
     showSection('quiz-page');
     loadQuestion();
 }
@@ -89,6 +99,13 @@ function handleAnswer(index, btn) {
     } else {
         btn.classList.add('wrong');
         allBtns[questionData.correct].classList.add('correct');
+        
+        // LOG MISTAKE FOR REVIEW
+        userMistakes.push({
+            questionObj: questionData,
+            userChoice: questionData.a[index],
+            correctChoice: questionData.a[questionData.correct]
+        });
     }
     
     document.getElementById('explanation-text').innerText = questionData.explanation;
@@ -96,14 +113,65 @@ function handleAnswer(index, btn) {
     document.getElementById('next-btn').classList.remove('hidden');
 }
 
+// 6. COMPLETION & REVIEW LOGIC
 document.getElementById('next-btn').onclick = () => {
     currentQuestionIndex++;
     if (currentQuestionIndex < allQuizzes[currentQuizKey].questions.length) {
         loadQuestion();
     } else {
-        showSection('result-page');
-        document.getElementById('final-result-text').innerText = `Module Score: ${score} / ${allQuizzes[currentQuizKey].questions.length}`;
+        endQuiz();
     }
 };
 
+function endQuiz() {
+    showSection('result-page');
+    document.getElementById('final-score-num').innerText = score;
+    
+    const reviewBtn = document.getElementById('show-review-btn');
+    const mistakeContainer = document.getElementById('mistake-review-container');
+    
+    // Hide review by default
+    mistakeContainer.classList.add('hidden');
+
+    if (userMistakes.length > 0) {
+        reviewBtn.classList.remove('hidden');
+        renderMistakes();
+    } else {
+        reviewBtn.classList.add('hidden');
+    }
+}
+
+function renderMistakes() {
+    const list = document.getElementById('mistakes-list');
+    list.innerHTML = "";
+    
+    userMistakes.forEach((m) => {
+        const card = document.createElement('div');
+        card.className = 'mistake-card';
+        card.innerHTML = `
+            <div class="mistake-card-header">${m.questionObj.q}</div>
+            <div class="mistake-body">
+                <div class="comparison-box your-choice">
+                    <span class="comparison-label">Your Answer</span>
+                    ${m.userChoice}
+                </div>
+                <div class="comparison-box correct-choice">
+                    <span class="comparison-label">Correct Answer</span>
+                    ${m.correctChoice}
+                </div>
+                <div class="review-explanation">
+                    <strong>Logic:</strong> ${m.questionObj.explanation}
+                </div>
+            </div>
+        `;
+        list.appendChild(card);
+    });
+}
+
+document.getElementById('show-review-btn').onclick = function() {
+    document.getElementById('mistake-review-container').classList.remove('hidden');
+    this.classList.add('hidden');
+};
+
+// Launch the app
 init();
