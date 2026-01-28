@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firefighter Recruitment Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="home-page">
+        <header class="hero-header">
+            <h1>Firefighter Exam Prep Training</h1>
+        </header>
+        <section class="info-box">
+            <h2>Professional Fire Aptitude Test Prep Portal</h2>
+            <p>Find the right practice test for you. We cover FACT, CPS, NFST. Select a specific module. Detailed explanations will appear after every answer to help you improve.</p>
+        </section>
+        
+        <div id="quiz-grid" class="horizontal-container"></div>
+    </div>
+
+    <div id="quiz-page" class="hidden">
+        <div class="quiz-card-container">
+            <div class="quiz-header">
+                <h2 id="quiz-title">Practice Test</h2>
+                <div class="stats">Score: <span id="current-score">0</span></div>
+            </div>
+
+            <div class="quiz-body">
+                <div class="question-side">
+                    <p id="question-text"></p>
+                    <div id="explanation-box" class="hidden">
+                        <hr>
+                        <h4>Explanation:</h4>
+                        <p id="explanation-text"></p>
+                    </div>
+                </div>
+                <div class="options-side" id="options-container"></div>
+            </div>
+
+            <div class="quiz-footer">
+                <button id="next-btn" class="hidden">NEXT QUESTION</button>
+            </div>
+        </div>
+        <div id="timer-box">Time: <span id="time-display">00:00</span></div>
+    </div>
+
+    <div id="result-page" class="hidden">
+        <div class="result-card">
+            <h1>Test Complete!</h1>
+            <p id="final-result-text"></p>
+            <div class="result-buttons">
+                <button class="nav-btn" onclick="location.reload()">Return Home</button>
+                <button id="retry-btn" class="nav-btn">Retry Test</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
