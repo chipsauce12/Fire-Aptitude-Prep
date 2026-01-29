@@ -24,16 +24,16 @@ const allQuizzes = {
             }
         ]
     },
-"mathematics": {
-    title: "Mathematics and Algebra",
-    desc: "Simple Math and Equations.",
-    questions: [
-        {
-            q: "If you have 1/4 of 0.5, how much do you have?",
-            a: ["0.25", "1", "0.5", "2"],
-            correct: 0,
-            explanation: "Multiplying by 0.5 is equivalent to dividing by 2. (1/4)/2"
-        }
+    "mathematics": {
+        title: "Mathematics and Algebra",
+        desc: "Simple Math and Equations.",
+        questions: [
+            {
+                q: "If you have 1/4 of 0.5, how much do you have?",
+                a: ["0.125", "1", "0.5", "2"],
+                correct: 0,
+                explanation: "0.5 is half. Half of 1/4 is 1/8, which equals 0.125. Alternatively: 0.25 * 0.5 = 0.125."
+            }
         ]
     }
 };
