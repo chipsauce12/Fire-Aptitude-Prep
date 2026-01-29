@@ -23,11 +23,10 @@ const allQuizzes = {
                 explanation: "In fire services, life safety is paramount. An impaired crew member is a danger to themselves, the team, and the public."
             }
         ]
-    }
-},
-"mathematics":{
+    },
+"mathematics": {
     title: "Mathematics and Algebra",
-    desc: "Simple math and equations.",
+    desc: "Simple Math and Equations.",
     questions: [
         {
             q: "If you have 1/4 of 0.5, how much do you have?",
